@@ -8,6 +8,7 @@ import './App.css'
 class BooksApp extends Component {
   state = {
     book : []
+  //  book1: []
 
   }
 
@@ -33,8 +34,7 @@ class BooksApp extends Component {
 
         <Route exact path='/' component={Getbook}/>
         <Route path='/search' render={()=>(
-          <Search book = {this.state.book}
-          />
+          <Search/>
         )}/>
 
       </div>

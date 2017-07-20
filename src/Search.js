@@ -17,7 +17,7 @@ class Search extends Component {
         this.setState({ sbook })
 
 
-
+// console.log(sbook)
 
       })
 
@@ -27,11 +27,11 @@ class Search extends Component {
 
 
   render(){
-    const {sbook} = this.state;
-
-    const mappedBooks = sbook.map((book, i) => {
-      console.log(book);
-    })
+    // const {sbook} = this.state;
+    //
+    // const mappedBooks = sbook.map((book, i) => {
+    //   console.log(book);
+    // })
 
     return(
       <div className="search-books">
@@ -48,11 +48,11 @@ class Search extends Component {
             <div className="search-books-results">
 
               <ol className="books-grid">
-                {mappedBooks.map((sbook)=>(
+                {this.state.sbook.map((sbooks)=>(
                   <li>
                     <div className="book">
                       <div className="book-top">
-                        <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${sbook.imageLinks && sbook.imageLinks.thumbnail})` }}></div>
+                        {/* <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${sbook.imageLinks && sbook.imageLinks.thumbnail})` }}></div> */}
                         <div className="book-shelf-changer">
                           <select>
                             <option value="none" disabled>Move to...</option>
@@ -63,8 +63,8 @@ class Search extends Component {
                           </select>
                         </div>
                       </div>
-                      <div className="book-title">{sbook.title}</div>
-                      <div className="book-authors">{sbook.authors}</div>
+                      <div className="book-title">{sbooks.title}</div>
+                      <div className="book-authors">{sbooks.authors}</div>
                     </div>
                   </li>
 
