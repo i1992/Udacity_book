@@ -15,10 +15,7 @@ class Search extends Component {
     this.setState({ query: query.trim() })
     BooksAPI.search(query).then((sbook)=>{
         this.setState({ sbook })
-
-
-// console.log(sbook)
-
+        console.log(sbook)
       })
 
   }
@@ -27,12 +24,6 @@ class Search extends Component {
 
 
   render(){
-    // const {sbook} = this.state;
-    //
-    // const mappedBooks = sbook.map((book, i) => {
-    //   console.log(book);
-    // })
-
     return(
       <div className="search-books">
             <div className="search-books-bar">
@@ -48,11 +39,12 @@ class Search extends Component {
             <div className="search-books-results">
 
               <ol className="books-grid">
-                {this.state.sbook.map((sbooks)=>(
-                  <li>
+                {this.state.sbook && this.state.sbook.length && this.state.sbook.map((sbooks,i)=>(
+
+                  <li key = {i}>
                     <div className="book">
                       <div className="book-top">
-                        {/* <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${sbook.imageLinks && sbook.imageLinks.thumbnail})` }}></div> */}
+                        <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${sbooks.imageLinks && sbooks.imageLinks.thumbnail})` }}></div>
                         <div className="book-shelf-changer">
                           <select>
                             <option value="none" disabled>Move to...</option>
@@ -64,7 +56,7 @@ class Search extends Component {
                         </div>
                       </div>
                       <div className="book-title">{sbooks.title}</div>
-                      <div className="book-authors">{sbooks.authors}</div>
+                      <div className="book-authors">{sbooks.authors && sbooks.authors.length ? sbooks.authors[0] : 'Unknown Author'}</div>
                     </div>
                   </li>
 

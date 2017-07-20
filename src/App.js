@@ -8,31 +8,27 @@ import './App.css'
 class BooksApp extends Component {
   state = {
     book : []
-  //  book1: []
 
   }
 
-  // componentDidMount(){
-  //   BooksAPI.search('art').then((book)=>{
-  //     this.setState({ book })
-  //
-  //     console.log(book);
-  //   })
-  // }
+  componentDidMount(){
+    BooksAPI.getAll().then((book)=>{
+      this.setState({ book })
 
-  // searchbook(query){
-  //   BooksAPI.search(query).then(query =>{
-  //     this.setState(state => ({
-  //       book : state.book.filter([books])
-  //     }))
-  //   })
-  // }
+      console.log(book);
+    })
+  }
+
 
   render() {
     return (
       <div className="app">
 
-        <Route exact path='/' component={Getbook}/>
+        <Route exact path='/' render={()=>(
+          <Getbook
+            book = {this.state.book}
+          />
+        )}/>
         <Route path='/search' render={()=>(
           <Search/>
         )}/>
