@@ -7,7 +7,10 @@ import './App.css'
 
 class BooksApp extends Component {
   state = {
-    book : []
+    book : [],
+    heading : [{name :'Currently Reading', value : 'currentlyReading'},
+     {name:'Want to Read', value : 'wantToRead'},
+      {name:'Read', value : 'read'}]
 
   }
 
@@ -27,6 +30,7 @@ class BooksApp extends Component {
         <Route exact path='/' render={()=>(
           <Getbook
             book = {this.state.book}
+            heading = {this.state.heading}
           />
         )}/>
         <Route path='/search' render={()=>(
