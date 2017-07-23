@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-// import escapeRegExp from 'escape-string-regexp'
 import * as BooksAPI from './BooksAPI'
-
-// import search_term from 'SEARCH_TERMS'
 
 class Search extends Component {
 
@@ -15,16 +12,12 @@ class Search extends Component {
     this.setState({ query: query.trim() })
     BooksAPI.search(query).then((sbook)=>{
         this.setState({ sbook })
-        console.log(sbook)
+        // console.log(sbook)
       })
-
   }
 
-
   handleChange = (book, shelf) => {
-
       this.props.onUpdateBook(book, shelf)
-
     }
 
 
@@ -34,19 +27,15 @@ class Search extends Component {
             <div className="search-books-bar">
               <Link className='close-search' to='/'>Close</Link>
               <div className="search-books-input-wrapper">
-
                 <input type="text" placeholder="Search by title or author" value={this.state.query}
                   onChange={(event) => this.updateQuery(event.target.value)}
                 />
-
               </div>
             </div>
             <div className="search-books-results">
-
               <ol className="books-grid">
                 {this.state.sbook && this.state.sbook.length && this.state.sbook.map((sbooks,i)=>(
-
-                  <li key = {i}>
+                  <li key = {sbooks.id}>
                     <div className="book">
                       <div className="book-top">
                         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${sbooks.imageLinks && sbooks.imageLinks.thumbnail})` }}></div>
@@ -64,9 +53,7 @@ class Search extends Component {
                       <div className="book-authors">{sbooks.authors && sbooks.authors.length ? sbooks.authors[0] : 'Unknown Author'}</div>
                     </div>
                   </li>
-
                 ))}
-
               </ol>
             </div>
           </div>

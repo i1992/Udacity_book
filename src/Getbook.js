@@ -4,26 +4,20 @@ import { Link } from 'react-router-dom'
 
 class Getbook extends Component {
 
-
-
   handleChange = (book, shelf) => {
-
       this.props.onUpdateBook(book, shelf)
-
     }
-
-
   renderUserMessage(ready){
-    return this.props.book.map((bookks) => {
+    return this.props.book.map((gbook) => {
       // console.log(bookks)
-      if (bookks.shelf === ready) {
+      if (gbook.shelf === ready) {
         return (
-           <li key = {bookks.id}>
+           <li key = {gbook.id}>
              <div className="book">
                <div className="book-top">
-                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${bookks.imageLinks && bookks.imageLinks.thumbnail})` }}></div>
+                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${gbook.imageLinks && gbook.imageLinks.thumbnail})` }}></div>
                  <div className="book-shelf-changer">
-                   <select value={bookks.shelf} onChange = {e => this.handleChange(bookks, e.target.value)}>
+                   <select value={gbook.shelf} onChange = {e => this.handleChange(gbook, e.target.value)}>
                      <option value="none" disabled>Move to...</option>
                      <option value="currentlyReading">Currently Reading</option>
                      <option value="wantToRead">Want to Read</option>
@@ -32,13 +26,13 @@ class Getbook extends Component {
                    </select>
                  </div>
                </div>
-               <div className="book-title">{bookks.title}</div>
-               <div className="book-authors">{bookks.authors}</div>
+               <div className="book-title">{gbook.title}</div>
+               <div className="book-authors">{gbook.authors}</div>
              </div>
            </li>
         );
       }
-      
+
     })
  }
  render (){
