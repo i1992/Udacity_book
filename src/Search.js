@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 // import escapeRegExp from 'escape-string-regexp'
 import * as BooksAPI from './BooksAPI'
+
 // import search_term from 'SEARCH_TERMS'
 
 class Search extends Component {
@@ -20,6 +21,11 @@ class Search extends Component {
   }
 
 
+  handleChange = (book, shelf) => {
+
+      this.props.onUpdateBook(book, shelf)
+
+    }
 
 
   render(){
@@ -45,7 +51,7 @@ class Search extends Component {
                       <div className="book-top">
                         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${sbooks.imageLinks && sbooks.imageLinks.thumbnail})` }}></div>
                         <div className="book-shelf-changer">
-                          <select>
+                          <select  value={sbooks.shelf} onChange = {e => this.handleChange(sbooks, e.target.value)}>
                             <option value="none" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
