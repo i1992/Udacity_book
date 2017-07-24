@@ -13,6 +13,8 @@ class BooksApp extends Component {
   this.Booksload()
   }
 
+
+
   Booksload = () =>{
     BooksAPI.getAll().then((book)=>{
       this.setState({ book })
@@ -38,7 +40,7 @@ class BooksApp extends Component {
         )}/>
         <Route path='/search' render={()=>(
           <Search
-            onUpdateBook = {(book, shelf) =>{
+            onChangeBook = {(book, shelf) =>{
               this.changeShelf(book, shelf)
             }}
           />
