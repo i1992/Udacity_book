@@ -13,7 +13,7 @@ class Getbook extends Component {
            <Book
              key = {gbook.id}
              book={gbook}
-             onChange = {onChange}
+             onChange = {this.props.onChange}
            />
         );
       }

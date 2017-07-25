@@ -32,7 +32,7 @@ class Search extends Component {
                   <Book
                     key = {sbooks.id}
                     book = {sbooks}
-                    onChange = {onChange}
+                    onChange = {this.props.onChange}
                   />
                 ))}
               </ol>
