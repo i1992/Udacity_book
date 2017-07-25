@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
-import Select from './Select'
+import Book from './Book'
 
 class Search extends Component {
-
   state = {
     query: '',
     sbook: []
@@ -16,10 +15,6 @@ class Search extends Component {
         // console.log(sbook)
       })
   }
-
-
-
-
   render(){
     return(
       <div className="search-books">
@@ -32,10 +27,15 @@ class Search extends Component {
               </div>
             </div>
             <div className="search-books-results">
-                  <Select
-                    sbook = {this.state.sbook}
-                    onchange = {onChangeBook}
+              <ol className="books-grid">
+                {this.state.sbook && this.state.sbook.length && this.state.sbook.map((sbooks,i)=>(
+                  <Book
+                    key = {sbooks.id}
+                    book = {sbooks}
+                    onChange = {onChange}
                   />
+                ))}
+              </ol>
             </div>
           </div>
     )
