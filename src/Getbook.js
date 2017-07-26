@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-// import serialzeForm from 'form-serialize'
 import Book from './Book'
 
 class Getbook extends Component {
@@ -62,7 +61,6 @@ class Getbook extends Component {
        <Link to = "/search" className = 'open-search'></Link>
      </div>
    </div>
-
    )
  }
 }

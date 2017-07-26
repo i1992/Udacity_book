@@ -5,7 +5,6 @@ import Book from './Book'
 class Search extends Component {
   state = {
     query: '',
-    // sbook: []
   }
   updateQuery = (query) => {
     this.setState({ query: query.trim() })

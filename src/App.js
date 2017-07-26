@@ -6,41 +6,49 @@ import Search from './Search'
 import './App.css'
 
 class BooksApp extends Component {
-  state = {
 
+  state = {
     book : [],
     sbook : []
   }
+
   componentDidMount(){
-  this.Booksload()
-
+    this.Booksload()
   }
-
-
 
   Booksload = () =>{
     BooksAPI.getAll().then((book)=>{
       this.setState({ book })
-        console.log(book);
+        // console.log(book);
         })
   }
 
-  changeShelf = (bookchange, shelf) =>{
-    console.log(bookchange)
-    BooksAPI.update(bookchange, shelf)
-    .then (()=> this.Booksload())
+  changeShelf = (bookchange, shelf) => {
+   BooksAPI.update(bookchange, shelf)
+   .then(() => this.Booksload());
+   // update books in search
+   this.setState(state => ({
+     sbook: state.sbook.map(b => {
+       if (b.id === bookchange.id) {
+         b.shelf = shelf;
+       }
+       return b;
+     })
+   }))
+ }
 
+ BookSearch = query => {
+   BooksAPI.search(query).then(sbook => {
+     this.setState(state => ({
+       sbook: sbook.map(b => {
+         const bookInShelf = state.book.find(bis => bis.id === b.id);
+         if (bookInShelf) b.shelf = bookInShelf.shelf;
+         return b;
+       })
+     }))
+   })
+ }
 
-
-  }
-
-  BookSearch = (query) => {
-    BooksAPI.search(query)
-
-    .then(sbook =>{ this.setState({ sbook })
-      console.log(sbook);
-    });
-  }
   render() {
     return (
       <div className="app">
