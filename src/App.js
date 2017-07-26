@@ -7,11 +7,16 @@ import './App.css'
 
 class BooksApp extends Component {
   state = {
+
     book : [],
+    sbook : []
   }
   componentDidMount(){
   this.Booksload()
+
   }
+
+
 
   Booksload = () =>{
     BooksAPI.getAll().then((book)=>{
@@ -25,6 +30,16 @@ class BooksApp extends Component {
     BooksAPI.update(bookchange, shelf)
     .then (()=> this.Booksload())
 
+
+
+  }
+
+  BookSearch = (query) => {
+    BooksAPI.search(query)
+
+    .then(sbook =>{ this.setState({ sbook })
+      console.log(sbook);
+    });
   }
   render() {
     return (
@@ -38,6 +53,8 @@ class BooksApp extends Component {
         )}/>
         <Route path='/search' render={()=>(
           <Search
+            BookSearch = {this.BookSearch}
+            book = {this.state.sbook}
             onChange = {this.changeShelf}
           />
         )}/>
