@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import * as BooksAPI from './BooksAPI'
 import Getbook from './Getbook'
-import { Route } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 import Search from './Search'
 import './App.css'
-import escapeRegExp from 'escape-string-regexp'
 
 class BooksApp extends Component {
 
@@ -28,7 +27,6 @@ class BooksApp extends Component {
   changeShelf = (bookchange, shelf) => {
    BooksAPI.update(bookchange, shelf)
    .then(() => this.Booksload());
-   // update books in search
    this.setState(state => ({
      sbook: state.sbook.map(b => {
        if (b.id === bookchange.id) {
@@ -40,10 +38,12 @@ class BooksApp extends Component {
  }
 
   BookSearch = (query) => {
-    let showingbook
     if(query){
       BooksAPI.search(query).then (sbook => {
-        if (sbook) {
+        if (sbook.hasOwnProperty("error")){
+          this.setState({sbook : []})
+        }
+        else {
           this.setState(state => ({
             sbook : sbook.map(b => {
             const bookInShelf = state.book.find(bis => bis.id === b.id);
@@ -52,25 +52,20 @@ class BooksApp extends Component {
             })
           }))
         }
-        else {
-          this.setState({ sbook: [] })
-        }
       })
     }
     else {
       this.setState({ sbook: [] })
     }
-
   }
-
   clearArray = () => {
        this.setState({ sbook: [] })
      }
 
   render() {
-
     return (
       <div className="app">
+        <Switch>
         <Route exact path='/' render={()=>(
           <Getbook
             book = {this.state.book}
@@ -87,6 +82,8 @@ class BooksApp extends Component {
 
           />
         )}/>
+
+        </Switch>
       </div>
     )
   }
