@@ -4,12 +4,14 @@ import Getbook from './Getbook'
 import { Route } from 'react-router-dom'
 import Search from './Search'
 import './App.css'
+import escapeRegExp from 'escape-string-regexp'
 
 class BooksApp extends Component {
 
   state = {
     book : [],
     sbook : []
+
   }
 
   componentDidMount(){
@@ -19,7 +21,7 @@ class BooksApp extends Component {
   Booksload = () =>{
     BooksAPI.getAll().then((book)=>{
       this.setState({ book })
-        // console.log(book);
+
         })
   }
 
@@ -37,19 +39,36 @@ class BooksApp extends Component {
    }))
  }
 
- BookSearch = query => {
-   BooksAPI.search(query).then(sbook => {
-     this.setState(state => ({
-       sbook: sbook.map(b => {
-         const bookInShelf = state.book.find(bis => bis.id === b.id);
-         if (bookInShelf) b.shelf = bookInShelf.shelf;
-         return b;
-       })
-     }))
-   })
- }
+  BookSearch = (query) => {
+    let showingbook
+    if(query){
+      BooksAPI.search(query).then (sbook => {
+        if (sbook) {
+          this.setState(state => ({
+            sbook : sbook.map(b => {
+            const bookInShelf = state.book.find(bis => bis.id === b.id);
+            if (bookInShelf) b.shelf = bookInShelf.shelf;
+            return b;
+            })
+          }))
+        }
+        else {
+          this.setState({ sbook: [] })
+        }
+      })
+    }
+    else {
+      this.setState({ sbook: [] })
+    }
+
+  }
+
+  clearArray = () => {
+       this.setState({ sbook: [] })
+     }
 
   render() {
+
     return (
       <div className="app">
         <Route exact path='/' render={()=>(
@@ -61,9 +80,11 @@ class BooksApp extends Component {
         )}/>
         <Route path='/search' render={()=>(
           <Search
+            onClick = {this.clearArray}
             BookSearch = {this.BookSearch}
             book = {this.state.sbook}
             onChange = {this.changeShelf}
+
           />
         )}/>
       </div>

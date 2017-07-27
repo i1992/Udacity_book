@@ -13,4 +13,4 @@ Application which track Books.
 
 ### Run
 
-	$ npm run
+	$ npm start
