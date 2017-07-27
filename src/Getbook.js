@@ -9,6 +9,7 @@ class Getbook extends Component {
       // console.log(bookks)
       if (gbook.shelf === ready) {
         return (
+
            <Book
              key = {gbook.id}
              book={gbook}
