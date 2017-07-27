@@ -9,7 +9,7 @@ Application which track Books.
 
     $ npm install
 
-# Following Command will install all the dependencies to help run this program !
+ Following Command will install all the dependencies to help run this program !
 
 ### Run
 
