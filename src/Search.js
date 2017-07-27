@@ -6,10 +6,15 @@ class Search extends Component {
   state = {
     query: '',
   }
+
+
   updateQuery = (query) => {
+
     this.setState({ query: query.trim() })
+
       this.props.BookSearch(query)
-  }
+
+}
   render(){
     return(
       <div className="search-books">
@@ -23,7 +28,7 @@ class Search extends Component {
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-                {this.props.book && this.props.book.length && this.props.book.map((sbooks)=>(
+                {this.props.book && this.props.book.length && this.props.book.map((sbooks, i)=>(
                   <Book
                     key = {sbooks.id}
                     book = {sbooks}
